@@ -18,14 +18,14 @@
     "nativeMessaging"
   ],
   "background": {
-      "service_worker": "background.js"
+      "service_worker": "src/background.js"
   },
   "content_scripts": [{
-      "js": [ "content.js" ],
+      "js": [ "src/content.js" ],
       "matches": [ "<all_urls>" ]
   }],
   "action": {
-    "default_popup": "popup.html",
+    "default_popup": "src/popup.html",
     "default_icon": {
         "16": "src/images/toolbar-icon-16.png",
         "19": "src/images/toolbar-icon-19.png",
