@@ -1,6 +1,12 @@
 import { ConfigPlugin, withDangerousMod } from "@expo/config-plugins";
-import fs from "fs";
 import path from "path";
+
+import {
+  BOTTOM_SHEET_DRAWABLE_FILE_NAME,
+  BOTTOM_SHEET_STYLES_FILE_NAME,
+  PATH_TO_INJECTED_FILES,
+  copyFile,
+} from "./util";
 
 export const withBottomSheetStyles: ConfigPlugin = (config) => {
   return withDangerousMod(config, [
@@ -9,35 +15,34 @@ export const withBottomSheetStyles: ConfigPlugin = (config) => {
       const projectRoot = config.modRequest.projectRoot;
 
       // Paths for the theme and drawable files in your project
-      const themeFilePath = path.join(projectRoot, "bottom_sheet_styles.xml"); // Adjust this path
-      const drawableFilePath = path.join(
+      const stylesSourcePath = path.join(
         projectRoot,
-        "background_bottom_sheet_dialog.xml"
+        PATH_TO_INJECTED_FILES,
+        BOTTOM_SHEET_STYLES_FILE_NAME
+      );
+      const drawableSourcePath = path.join(
+        projectRoot,
+        PATH_TO_INJECTED_FILES,
+        BOTTOM_SHEET_DRAWABLE_FILE_NAME
       ); // Adjust this path
 
       // Destination paths in the Android project
-      const androidThemePath = path.join(
+      const stylesDestinationPath = path.join(
         projectRoot,
-        "android/app/src/main/res/values/bottom_sheet_styles.xml"
+        "android/app/src/main/res/values/",
+        BOTTOM_SHEET_STYLES_FILE_NAME
       );
-      const androidDrawablePath = path.join(
+      const drawableDestinationPath = path.join(
         projectRoot,
-        "android/app/src/main/res/drawable/background_bottom_sheet_dialog.xml"
+        "android/app/src/main/res/drawable/",
+        BOTTOM_SHEET_DRAWABLE_FILE_NAME
       );
 
       // Copy the files
-      copyFile(themeFilePath, androidThemePath);
-      copyFile(drawableFilePath, androidDrawablePath);
+      copyFile(stylesSourcePath, stylesDestinationPath);
+      copyFile(drawableSourcePath, drawableDestinationPath);
 
       return config;
     },
   ]);
 };
-
-function copyFile(sourcePath: string, destinationPath: string) {
-  const directory = path.dirname(destinationPath);
-  if (!fs.existsSync(directory)) {
-    fs.mkdirSync(directory, { recursive: true });
-  }
-  fs.copyFileSync(sourcePath, destinationPath);
-}

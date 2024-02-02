@@ -6,6 +6,12 @@ import {
 import fs from "fs";
 import path from "path";
 
+import {
+  copyFile,
+  BOTTOM_SHEET_ACTIVITY_FILE_NAME,
+  PATH_TO_INJECTED_FILES,
+} from "./util";
+
 export const withBottomSheetActivity: ConfigPlugin = (config) => {
   return withDangerousMod(config, [
     "android",
@@ -18,29 +24,32 @@ export const withBottomSheetActivity: ConfigPlugin = (config) => {
 
       const activitySourcePath = path.join(
         projectRoot,
-        "MobileWalletAdapterBottomSheetActivity.kt"
+        PATH_TO_INJECTED_FILES,
+        BOTTOM_SHEET_ACTIVITY_FILE_NAME
       );
 
       const activityDestinationPath = `android/app/src/main/java/${packageName.replace(
         /\./g,
         "/"
-      )}/MobileWalletAdapterBottomSheetActivity.kt`;
+      )}/${BOTTOM_SHEET_ACTIVITY_FILE_NAME}`;
 
-      // Ensure the directory exists for the destination
-      const activityDirectory = path.dirname(activityDestinationPath);
-      if (!fs.existsSync(activityDirectory)) {
-        fs.mkdirSync(activityDirectory, { recursive: true });
-      }
+      copyFile(activitySourcePath, activityDestinationPath);
 
-      // Copy the file
-      if (fs.existsSync(activitySourcePath)) {
-        fs.copyFileSync(activitySourcePath, activityDestinationPath);
-      } else {
-        console.error(
-          `Could not find MobileWalletAdapterBottomSheetActivity.kt at ${activitySourcePath}`
-        );
-        // Consider whether to throw an error or not
-      }
+      // Read the activity file content
+      const activityContent = fs.readFileSync(activityDestinationPath, {
+        encoding: "utf8",
+      });
+
+      // Replace the placeholder with the actual package name
+      const updatedActivityContent = activityContent.replace(
+        "<REPLACE_PACKAGE_NAME>",
+        packageName
+      );
+
+      // Write the updated content back to the file
+      fs.writeFileSync(activityDestinationPath, updatedActivityContent, {
+        encoding: "utf8",
+      });
 
       return config;
     },
