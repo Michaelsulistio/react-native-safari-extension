@@ -1,4 +1,4 @@
-package <REPLACE_PACKAGE_NAME>
+package <PACKAGE_HEADER_PLACEHOLDER>
 
 import android.os.Bundle
 import android.view.Gravity

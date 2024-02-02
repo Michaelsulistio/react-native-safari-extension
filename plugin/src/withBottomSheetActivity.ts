@@ -10,6 +10,7 @@ import {
   copyFile,
   BOTTOM_SHEET_ACTIVITY_FILE_NAME,
   PATH_TO_INJECTED_FILES,
+  PACKAGE_HEADER_PLACEHOLDER_STRING,
 } from "./util";
 
 export const withBottomSheetActivity: ConfigPlugin = (config) => {
@@ -35,14 +36,14 @@ export const withBottomSheetActivity: ConfigPlugin = (config) => {
 
       copyFile(activitySourcePath, activityDestinationPath);
 
-      // Read the activity file content
+      // Read the newly written activity file content
       const activityContent = fs.readFileSync(activityDestinationPath, {
         encoding: "utf8",
       });
 
       // Replace the placeholder with the actual package name
       const updatedActivityContent = activityContent.replace(
-        "<REPLACE_PACKAGE_NAME>",
+        PACKAGE_HEADER_PLACEHOLDER_STRING,
         packageName
       );
 
