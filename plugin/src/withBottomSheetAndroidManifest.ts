@@ -5,7 +5,6 @@ import {
 } from "@expo/config-plugins";
 
 export const withBottomSheetAndroidManifest: ConfigPlugin = (config) => {
-  console.log("Running withBottomSheetAndroidManifest");
   return withAndroidManifest(config, async (config) => {
     // <activity
     //     android:name=".MobileWalletAdapterBottomSheetActivity"

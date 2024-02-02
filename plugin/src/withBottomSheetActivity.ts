@@ -7,7 +7,6 @@ import fs from "fs";
 import path from "path";
 
 export const withBottomSheetActivity: ConfigPlugin = (config) => {
-  console.log("Running withBottomSheetActivity");
   return withDangerousMod(config, [
     "android",
     (config) => {
@@ -20,10 +19,6 @@ export const withBottomSheetActivity: ConfigPlugin = (config) => {
       const activitySourcePath = path.join(
         projectRoot,
         "MobileWalletAdapterBottomSheetActivity.kt"
-      );
-
-      console.log(
-        "Attempting to copy activity source at: " + activitySourcePath
       );
 
       const activityDestinationPath = `android/app/src/main/java/${packageName.replace(

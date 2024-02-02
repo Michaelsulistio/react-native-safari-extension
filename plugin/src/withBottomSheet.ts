@@ -13,7 +13,6 @@ const withBottomSheet: ConfigPlugin<PluginParams> = (
   config,
   { folderName, dependencies }
 ) => {
-  console.log("Running withBottomSheet");
   // Steps:
   //  1. Write AndroidActivity into Android project
   //  2. Add styles/drawables into Android project
