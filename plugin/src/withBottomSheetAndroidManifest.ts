@@ -2,14 +2,11 @@ import {
   withAndroidManifest,
   AndroidConfig,
   ConfigPlugin,
-  withDangerousMod,
 } from "@expo/config-plugins";
-import fs from "fs";
-import path from "path";
 
-const withAndroidActivity: ConfigPlugin = (config) => {
-  console.log("Running withAndroidActivity");
-  config = withAndroidManifest(config, async (config) => {
+export const withBottomSheetAndroidManifest: ConfigPlugin = (config) => {
+  console.log("Running withBottomSheetAndroidManifest");
+  return withAndroidManifest(config, async (config) => {
     // <activity
     //     android:name=".MobileWalletAdapterBottomSheetActivity"
     //     android:launchMode="singleTask"
@@ -77,54 +74,4 @@ const withAndroidActivity: ConfigPlugin = (config) => {
 
     return config;
   });
-
-  return withActivitySourceCode(config);
 };
-
-const withActivitySourceCode: ConfigPlugin = (config) => {
-  console.log("Running withActivitySourceCode");
-  return withDangerousMod(config, [
-    "android",
-    (config) => {
-      const projectRoot = config.modRequest.projectRoot;
-      const packageName = AndroidConfig.Package.getPackage(config);
-      if (!packageName) {
-        throw Error("Unable to find Android package name");
-      }
-
-      const activitySourcePath = path.join(
-        projectRoot,
-        "MobileWalletAdapterBottomSheetActivity.kt"
-      );
-
-      console.log(
-        "Attempting to copy activity source at: " + activitySourcePath
-      );
-
-      const activityDestinationPath = `android/app/src/main/java/${packageName.replace(
-        /\./g,
-        "/"
-      )}/MobileWalletAdapterBottomSheetActivity.kt`;
-
-      // Ensure the directory exists for the destination
-      const activityDirectory = path.dirname(activityDestinationPath);
-      if (!fs.existsSync(activityDirectory)) {
-        fs.mkdirSync(activityDirectory, { recursive: true });
-      }
-
-      // Copy the file
-      if (fs.existsSync(activitySourcePath)) {
-        fs.copyFileSync(activitySourcePath, activityDestinationPath);
-      } else {
-        console.error(
-          `Could not find MobileWalletAdapterBottomSheetActivity.kt at ${activitySourcePath}`
-        );
-        // Consider whether to throw an error or not
-      }
-
-      return config;
-    },
-  ]);
-};
-
-export default withAndroidActivity;
