@@ -1,11 +1,8 @@
 {
   "expo": {
-    "name": "basic-example",
-    "slug": "basic-example",
+    "name": "basic-bottom-sheet-wallet",
+    "slug": "basic-bottom-sheet-wallet",
     "version": "1.0.0",
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -14,10 +11,11 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.alevy97.basic-example"
+      "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
@@ -25,13 +23,8 @@
         "backgroundColor": "#ffffff"
       }
     },
-    "plugins": [
-      [
-        "react-native-safari-extension",
-        {
-          "folderName": "MyExtension"
-        }
-      ]
-    ]
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
   }
 }
