@@ -25,6 +25,14 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "mwa-bottom-sheet-expo-plugin",
+        {
+          "walletUriBase": "MyExtension"
+        }
+      ]
+    ]
   }
 }

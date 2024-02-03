@@ -51,5 +51,8 @@
     "react": "*",
     "react-native": "*"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "dependencies": {
+    "expo-dev-client": "~3.3.8"
+  }
 }
