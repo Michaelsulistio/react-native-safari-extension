@@ -1,8 +1,1 @@
-export function isSafariExtension(): boolean {
-  return (
-    // @ts-ignore
-    typeof window !== "undefined" &&
-    // @ts-ignore
-    window?.location?.href.startsWith("safari-web-extension://")
-  );
-}
+export const BOTTOM_SHEET_ACTIVITY_NAME = "MobileWalletAdapterEntrypoint";

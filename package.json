@@ -1,6 +1,6 @@
 {
   "name": "mwa-bottom-sheet-expo-plugin",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Config plugin to add a Safari Extension to your React Native iOS app",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -35,19 +35,15 @@
   "keywords": [
     "react-native",
     "expo",
-    "safari-extension",
     "expo-config-plugin"
   ],
   "devDependencies": {
+    "@tsconfig/node14": "^14.1.0",
     "@types/fs-extra": "^9.0.13",
     "@types/node": "^17.0.42",
-    "@types/react": "~18.2.21",
-    "@types/react-native": "0.72.2",
     "copyfiles": "^2.4.1",
     "expo-module-scripts": "^3.1.0",
     "prettier": "^3.0.3",
-    "react": "18.2.0",
-    "react-native": "0.72.4",
     "typescript": "^5.2.2"
   },
   "peerDependencies": {
@@ -55,9 +51,5 @@
     "react": "*",
     "react-native": "*"
   },
-  "sideEffects": false,
-  "dependencies": {
-    "@tsconfig/node14": "^14.1.0",
-    "xcode": "^3.0.1"
-  }
+  "sideEffects": false
 }
